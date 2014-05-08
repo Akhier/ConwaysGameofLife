@@ -1,8 +1,10 @@
 # depslib dependency file v1.0
-1399584672 source:c:\programming\conwaysgameoflife\conwaysgameoflife.cpp
+1399589400 source:c:\programming\conwaysgameoflife\conwaysgameoflife.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<iostream>
+	<stdlib.h>
+	<time.h>
 
 1394937196 c:\sdl2 32\include\sdl2\sdl.h
 	"SDL_main.h"
