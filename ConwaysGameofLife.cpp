@@ -16,10 +16,14 @@ void setMapToDead(bool (&gridmap)[100][100]){
     }
 }
 
+bool randBool(){
+    return rand() % 2 == 1;
+}
+
 void setMapRandomly(bool (&gridmap)[100][100]){
     for (int column = 0; column < 100; ++column){
         for (int row = 0; row < 100; ++row){
-            gridmap[row][column] = rand() % 2 == 1;
+            gridmap[row][column] = randBool()?randBool():false;
         }
     }
 }
