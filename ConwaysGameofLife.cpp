@@ -28,6 +28,14 @@ void setMapRandomly(bool (&gridmap)[100][100]){
     }
 }
 
+void invertMapTile(bool(&gridmap)[100][100]){
+    int row, column;
+    SDL_GetMouseState(&row, &column);
+    row = row / 8;
+    column = column / 8;
+    gridmap[row][column] = !gridmap[row][column];
+}
+
 int main( int argc, char* args[] ){
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
         logError("SDL_Init");
@@ -62,7 +70,7 @@ int main( int argc, char* args[] ){
             }
             if (e.type == SDL_MOUSEBUTTONDOWN){
                 if(e.button.button == SDL_BUTTON_LEFT){
-
+                    invertMapTile(gridmap);
                 }
                 if(e.button.button == SDL_BUTTON_MIDDLE){
                     setMapRandomly(gridmap);
