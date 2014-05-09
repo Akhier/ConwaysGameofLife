@@ -23,7 +23,7 @@ bool randBool(){
 void setMapRandomly(bool (&gridmap)[100][100]){
     for (int column = 0; column < 100; ++column){
         for (int row = 0; row < 100; ++row){
-            gridmap[row][column] = randBool()?randBool():false;
+            gridmap[row][column] = randBool() ? randBool(): false;
         }
     }
 }
@@ -34,6 +34,53 @@ void invertMapTile(bool(&gridmap)[100][100]){
     row = row / 8;
     column = column / 8;
     gridmap[row][column] = !gridmap[row][column];
+}
+
+void stepLife(bool (&gridmap)[100][100]){
+    int livecount[100][100] = {0};
+    for (int column = 0; column < 100; ++column){
+        for (int row = 0; row < 100; ++row){
+            if (gridmap[row][column]){
+                if (row != 0){
+                    if (column != 0){
+                        ++livecount[row - 1][column - 1];
+                    }
+                    if (column != 99){
+                        ++livecount[row - 1][column + 1];
+                    }
+                    ++livecount[row - 1][column];
+                }
+                if (row != 99){
+                    if (column != 0){
+                        ++livecount[row + 1][column - 1];
+                    }
+                    if (column != 99){
+                        ++livecount[row + 1][column + 1];
+                    }
+                    ++livecount[row + 1][column];
+                }
+                if (column != 0){
+                    ++livecount[row][column - 1];
+                }
+                if (column != 99){
+                    ++livecount[row][column + 1];
+                }
+            }
+        }
+    }
+    for (int column = 0; column < 100; ++column){
+        for (int row = 0; row < 100; ++row){
+            if (livecount[row][column] < 2){
+                gridmap[row][column] = false;
+            }
+            else if (livecount[row][column] == 3){
+                gridmap[row][column] = true;
+            }
+            else if (livecount[row][column] > 3){
+                gridmap[row][column] = false;
+            }
+        }
+    }
 }
 
 int main( int argc, char* args[] ){
@@ -61,11 +108,11 @@ int main( int argc, char* args[] ){
     while (!quit){
         while(SDL_PollEvent(&e)){
             if (e.type == SDL_QUIT){
-                    quit = true;
+                quit = true;
             }
             if (e.type == SDL_KEYDOWN){
                 if(e.key.keysym.sym == SDLK_SPACE){
-
+                    stepLife(gridmap);
                 }
             }
             if (e.type == SDL_MOUSEBUTTONDOWN){
