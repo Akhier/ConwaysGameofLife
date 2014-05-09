@@ -105,14 +105,25 @@ int main( int argc, char* args[] ){
     setMapToDead(gridmap);
     SDL_Event e;
     bool quit = false;
+    bool continualSteps = false;
     while (!quit){
         while(SDL_PollEvent(&e)){
             if (e.type == SDL_QUIT){
                 quit = true;
             }
             if (e.type == SDL_KEYDOWN){
-                if(e.key.keysym.sym == SDLK_SPACE){
-                    stepLife(gridmap);
+                switch(e.key.keysym.sym){
+                    case SDLK_SPACE:
+                        stepLife(gridmap);
+                        break;
+                    case SDLK_ESCAPE:
+                        quit = true;
+                        break;
+                    case SDLK_p:
+                        continualSteps = !continualSteps;
+                        break;
+                    default:
+                        break;
                 }
             }
             if (e.type == SDL_MOUSEBUTTONDOWN){
@@ -128,6 +139,9 @@ int main( int argc, char* args[] ){
             }
         }
         SDL_RenderClear(renderer);
+        if (continualSteps){
+            stepLife(gridmap);
+        }
         for (int column = 0; column < 100; ++column){
             for (int row = 0; row < 100; ++row){
                 destPos.x = row * 8;
