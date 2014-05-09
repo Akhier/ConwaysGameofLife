@@ -12,24 +12,18 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-std=c++11" />
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
 					<Add option="-g" />
-					<Add directory="C:/SDL2 32/include/SDL2" />
 				</Compiler>
-				<Linker>
-					<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_image" />
-					<Add directory="C:/SDL2 32/lib" />
-				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="./ConwaysGameofLife" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-O3" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -37,8 +31,15 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
+			<Add directory="C:/SDL2 32/include/SDL2" />
 		</Compiler>
+		<Linker>
+			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_image" />
+			<Add option="-static-libgcc -static-libstdc++" />
+			<Add directory="C:/SDL2 32/lib" />
+		</Linker>
 		<Unit filename="ConwaysGameofLife.cpp" />
 		<Extensions>
 			<code_completion />
