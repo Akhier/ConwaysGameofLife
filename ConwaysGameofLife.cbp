@@ -35,11 +35,13 @@
 			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add directory="C:/SDL2 32/include/SDL2" />
+			<Add directory="C:/Programming/DrW_SDL2" />
 		</Compiler>
 		<Linker>
 			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_image" />
-			<Add option="-static-libgcc -static-libstdc++" />
+			<Add library="C:\Programming\DrW_SDL2\libDragonWrapper_SDL2.a" />
 			<Add directory="C:/SDL2 32/lib" />
+			<Add directory="C:/Programming/DrW_SDL2" />
 		</Linker>
 		<Unit filename="ConwaysGameofLife.cpp" />
 		<Extensions>

@@ -1,12 +1,7 @@
-#include <SDL.h>
-#include <SDL_image.h>
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
-
-void logError(const std::string &message) {
-    std::cout << message << " Error: " << SDL_GetError() << std::endl;
-}
+#include "drw_sdl2.h"
 
 void setMapToDead(bool (&gridmap)[100][100]){
     for (int column = 0; column < 100; ++column){
@@ -84,23 +79,13 @@ void stepLife(bool (&gridmap)[100][100]){
 }
 
 int main( int argc, char* args[] ){
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
-        logError("SDL_Init");
-        return 1;
-    }
+    DrW_SDL2 drw;
     srand(time(NULL));
-    SDL_Window* window = SDL_CreateWindow("Conway's Game of Life", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 800, SDL_WINDOW_SHOWN);
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    SDL_Surface* tempcells = SDL_ConvertSurface(IMG_Load("Cells.bmp"), SDL_GetWindowSurface(window)->format, NULL);
-    SDL_SetColorKey(tempcells, SDL_TRUE, SDL_MapRGB(tempcells->format, 255, 0, 255));
-    SDL_Texture* cells = SDL_CreateTextureFromSurface(renderer, tempcells);
-    SDL_FreeSurface(tempcells);
-    tempcells = NULL;
-    SDL_Rect alivePos, deadPos, destPos;
-    alivePos.x = 0; deadPos.x = 8; destPos.x = 0;
-    alivePos.y = 0; deadPos.y = 0; destPos.y = 0;
-    alivePos.w = 8; deadPos.w = 8; destPos.w = 8;
-    alivePos.h = 8; deadPos.h = 8; destPos.h = 8;
+    drw.createWindow("Conway's Game of Life", 800, 800, false);
+    int Cells = drw.createTexture("Cells.png");
+    int alive = drw.setupTileset(Cells, Rect(0, 0, 8, 8));
+    int dead = drw.setupTileset(Cells, Rect(8, 0, 8, 8));
+    Rect destPos = Rect(0, 0, 8, 8);
     bool gridmap[100][100];
     setMapToDead(gridmap);
     SDL_Event e;
@@ -138,19 +123,18 @@ int main( int argc, char* args[] ){
                 }
             }
         }
-        SDL_RenderClear(renderer);
+        drw.renderclear();
         if (continualSteps){
             stepLife(gridmap);
         }
         for (int column = 0; column < 100; ++column){
             for (int row = 0; row < 100; ++row){
-                destPos.x = row * 8;
-                destPos.y = column * 8;
-                SDL_RenderCopy(renderer, cells, gridmap[row][column]?&alivePos:&deadPos, &destPos);
+                destPos.X = row * 8;
+                destPos.Y = column * 8;
+                drw.renderTexture(Cells, gridmap[row][column] ? drw.getSourceRect(Cells, alive) : drw.getSourceRect(Cells, dead), destPos);
             }
         }
-        SDL_RenderPresent(renderer);
+        drw.renderpresent();
     }
-
 	return 0;
 }

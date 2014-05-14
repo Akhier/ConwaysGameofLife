@@ -1,10 +1,9 @@
 # depslib dependency file v1.0
-1399595191 source:c:\programming\conwaysgameoflife\conwaysgameoflife.cpp
-	<SDL.h>
-	<SDL_image.h>
+1400025746 source:c:\programming\conwaysgameoflife\conwaysgameoflife.cpp
 	<iostream>
 	<stdlib.h>
 	<time.h>
+	"drw_sdl2.h"
 
 1394937196 c:\sdl2 32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -328,4 +327,33 @@
 	"SDL_version.h"
 	"begin_code.h"
 	"close_code.h"
+
+1399891913 c:\programming\dragonwrapper_sdl2\drw_sdl2.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<iostream>
+	<map>
+	<vector>
+	"drw_sdl2_rect.h"
+
+1376156543 c:\sdl2 32\include\sdl2\sdl_ttf.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
+
+1399951185 c:\programming\dragonwrapper_sdl2\drw_sdl2_rect.h
+	<SDL.h>
+
+1399891913 c:\programming\drw_sdl2\drw_sdl2.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<iostream>
+	<map>
+	<vector>
+	"drw_sdl2_rect.h"
+
+1399951185 c:\programming\drw_sdl2\drw_sdl2_rect.h
+	<SDL.h>
 
